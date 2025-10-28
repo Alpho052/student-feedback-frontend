@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function FeedbackList() {
   const [feedbacks, setFeedbacks] = useState([]);
 
   const loadFeedback = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/feedback');
+      const res = await axios.get(`${API_URL}/api/feedback`);
       setFeedbacks(res.data);
     } catch (err) {
       console.error(err);
@@ -20,7 +21,7 @@ export default function FeedbackList() {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this feedback?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/feedback/${id}`);
+      await axios.delete(`${API_URL}/api/feedback/${id}`);
       loadFeedback();
     } catch (err) {
       alert('Delete failed');
