@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function FeedbackForm({ onSuccess }) {
   const [form, setForm] = useState({
@@ -30,7 +31,7 @@ export default function FeedbackForm({ onSuccess }) {
     if (Object.keys(err).length > 0) return;
 
     try {
-      await axios.post('http://localhost:5000/api/feedback', form);
+      await axios.post(`${API_URL}/api/feedback`, form);
       onSuccess();
       setForm({ studentName: '', courseCode: '', comments: '', rating: 3 });
       setErrors({});
